@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#0b1020">
+  <title>VINTAV Payment — Kevin Octavianus</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand"><div class="logo">V</div><div><b>VINTAV</b><span>PAYMENT</span></div></div>
+      <nav>
+        <button class="nav active" data-page="dashboard">⌂ <span>Dashboard</span></button>
+        <button class="nav" data-page="wallets">◈ <span>E-Wallet</span></button>
+        <button class="nav" data-page="banks">▣ <span>Bank</span></button>
+        <button class="nav" data-page="qris">▦ <span>QRIS</span></button>
+        <button class="nav" data-page="history">↕ <span>Riwayat</span></button>
+      </nav>
+      <div class="sidebar-bottom">
+        <button class="nav" id="themeBtn">☼ <span>Ganti Tema</span></button>
+        <button class="nav" id="resetBtn">↻ <span>Reset Demo</span></button>
+      </div>
+    </aside>
+
+    <main>
+      <header class="topbar">
+        <button class="mobile-menu" id="menuBtn">☰</button>
+        <div><div class="eyebrow">PERSONAL PAYMENT</div><h1 id="pageTitle">Dashboard</h1></div>
+        <div class="profile"><div class="avatar">KO</div><div><b>Kevin Octavianus</b><small>Payment Center</small></div></div>
+      </header>
+
+      <section class="content">
+        <div id="dashboard" class="page active">
+          <div class="hero">
+            <div><span class="pill">VINTAV OS • DEMO</span><h2>Semua pembayaran Kevin,<br><em>satu tempat.</em></h2><p>Kelola e-wallet, rekening bank, QRIS, dan riwayat pembayaran secara cepat.</p></div>
+            <button class="primary" data-open="paymentModal">＋ Tambah Payment</button>
+          </div>
+          <div class="stats">
+            <div class="stat"><span>Total Payment</span><strong id="totalCount">0</strong><small>Akun tersimpan</small></div>
+            <div class="stat"><span>E-Wallet</span><strong id="walletCount">0</strong><small>Dompet digital</small></div>
+            <div class="stat"><span>Bank</span><strong id="bankCount">0</strong><small>Rekening</small></div>
+            <div class="stat"><span>QRIS</span><strong id="qrisCount">0</strong><small>QR aktif</small></div>
+          </div>
+          <div class="grid-2">
+            <div class="card"><div class="card-head"><div><span class="label">QUICK ACCESS</span><h3>Payment Accounts</h3></div><button class="ghost" data-page-go="wallets">Lihat semua →</button></div><div id="quickAccounts" class="account-list"></div></div>
+            <div class="card"><div class="card-head"><div><span class="label">ACTIVITY</span><h3>Transaksi Terbaru</h3></div><button class="ghost" data-page-go="history">Riwayat →</button></div><div id="recentHistory" class="history-list"></div></div>
+          </div>
+        </div>
+
+        <div id="wallets" class="page">
+          <div class="page-intro"><div><span class="label">DIGITAL WALLET</span><h2>E-Wallet</h2><p>Kelola dompet digital yang kamu gunakan.</p></div><button class="primary" data-open="paymentModal" data-type="EWALLET">＋ Tambah E-Wallet</button></div>
+          <div id="walletGrid" class="cards-grid"></div>
+        </div>
+
+        <div id="banks" class="page">
+          <div class="page-intro"><div><span class="label">BANKING</span><h2>Bank</h2><p>Semua rekening pembayaran dalam satu tampilan.</p></div><button class="primary" data-open="paymentModal" data-type="BANK">＋ Tambah Bank</button></div>
+          <div id="bankGrid" class="cards-grid"></div>
+        </div>
+
+        <div id="qris" class="page">
+          <div class="page-intro"><div><span class="label">QUICK RESPONSE CODE</span><h2>QRIS</h2><p>Simpan dan tampilkan QRIS pembayaranmu.</p></div><button class="primary" data-open="paymentModal" data-type="QRIS">＋ Tambah QRIS</button></div>
+          <div id="qrisArea"></div>
+        </div>
+
+        <div id="history" class="page">
+          <div class="page-intro"><div><span class="label">TRANSACTION LOG</span><h2>Riwayat Pembayaran</h2><p>Catatan transaksi demo yang tersimpan di perangkat.</p></div><button class="primary" data-open="transactionModal">＋ Catat Transaksi</button></div>
+          <div class="card"><div id="historyFull" class="history-list"></div></div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div class="modal-wrap" id="paymentModal">
+    <div class="modal">
+      <button class="close" data-close>×</button><span class="label">PAYMENT ACCOUNT</span><h2>Tambah Payment</h2>
+      <form id="paymentForm">
+        <label>Jenis<select id="type"><option value="EWALLET">E-Wallet</option><option value="BANK">Bank</option><option value="QRIS">QRIS</option></select></label>
+        <label>Nama Provider / Bank<input id="provider" required placeholder="Contoh: DANA / BCA"></label>
+        <label>Nama Pemilik<input id="holder" value="Kevin Octavianus" required></label>
+        <label>Nomor / ID<input id="number" placeholder="Akan disamarkan saat ditampilkan"></label>
+        <label>Catatan<input id="note" placeholder="Opsional"></label>
+        <label class="check"><input type="checkbox" id="favorite"> Jadikan payment utama</label>
+        <button class="primary wide">Simpan Payment</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="modal-wrap" id="transactionModal">
+    <div class="modal">
+      <button class="close" data-close>×</button><span class="label">TRANSACTION</span><h2>Catat Transaksi</h2>
+      <form id="transactionForm">
+        <label>Payment<select id="txAccount" required></select></label>
+        <label>Deskripsi<input id="txDesc" required placeholder="Contoh: Makan siang"></label>
+        <label>Nominal (Rp)<input id="txAmount" type="number" min="1" required placeholder="25000"></label>
+        <label>Tipe<select id="txType"><option value="OUT">Pengeluaran</option><option value="IN">Pemasukan</option></select></label>
+        <button class="primary wide">Simpan Transaksi</button>
+      </form>
+    </div>
+  </div>
+
+  <div id="toast"></div>
+  <script src="app.js"></script>
+</body>
+</html>
